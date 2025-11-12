@@ -1,0 +1,52 @@
+expose:
+  type: ingress
+  tls:
+    enabled: true
+    secretName: "harbor-tls"
+  ingress:
+    hosts:
+      core: harbor.test.com
+    className: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+externalURL: https://harbor.test.com
+
+harborAdminPassword: "Harbor12345"
+
+database:
+  type: internal
+  internal:
+    password: "postgres123"
+    storageClass: "standard"
+
+redis:
+  type: internal
+  internal:
+    storageClass: "standard"
+
+persistence:
+  enabled: true
+  resourcePolicy: "keep"
+  persistentVolumeClaim:
+    registry:
+      storageClass: "standard"
+      size: 5Gi
+    chartmuseum:
+      storageClass: "standard" 
+      size: 5Gi
+    jobservice:
+      storageClass: "standard"
+      size: 1Gi
+    trivy:
+      storageClass: "standard"
+      size: 5Gi
+
+chartmuseum:
+  enabled: true
+
+trivy:
+  enabled: true
+
+notary:
+  enabled: true
