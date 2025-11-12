@@ -5,12 +5,12 @@ expose:
     secretName: "harbor-tls"
   ingress:
     hosts:
-      core: harbor.test.com
+      core: local.harbor
     className: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
-externalURL: https://harbor.test.com
+externalURL: https://local.harbor
 
 harborAdminPassword: "Harbor12345"
 
