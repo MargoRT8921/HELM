@@ -1,0 +1,59 @@
+# production-values.yaml
+global:
+  clusterName: "production-cluster"
+  image:
+    tag: "v2.10.4"
+
+server:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    hosts:
+      - "local.argocd"
+    tls:
+      - secretName: argocd-tls
+        hosts:
+          - "local.argocd"
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "200m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+
+controller:
+  replicas: 2
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "300m"
+
+repoServer:
+  replicas: 2
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "300m"
+
+config:
+  params:
+    application.resourceTrackingMethod: annotation
+
+rbac:
+  policy.csv: |
+    g, team:platform, role:admin
+    g, team:developers, role:developer
+
+persistence:
+  enabled: true
+  storageClassName: "fast-ssd"
+  size: 50Gi
