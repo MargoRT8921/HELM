@@ -1,4 +1,3 @@
-# production-values.yaml
 global:
   clusterName: "production-cluster"
   image:
