@@ -1,0 +1,31 @@
+global:
+  hosts:
+    domain: gitlab.local
+    https: false
+  ingress:
+    class: nginx
+
+certmanager:
+  install: false
+
+nginx-ingress:
+  enabled: true
+
+postgresql:
+  install: true
+  persistence:
+    size: 8Gi
+
+redis:
+  install: true
+  persistence:
+    size: 4Gi
+
+gitlab:
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+
+gitlab-runner:
+  install: false
